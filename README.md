@@ -9,6 +9,11 @@ Você vai precisar do [Docker](https://hub.docker.com) para rodar o Redis:
 $ docker pull redis
 ```
 
+Não realizei nenhuma criação de login para pegar o token de acesso do _Cartola FC_ com isso é necessário fazer o login manual no _Cartola FC_ ir nos cookies e pegar o GLBID, após isso, copiar e colar no appsettings.json do projeto Cartola.Api
+```bash
+"GlbId": "12af9de170ba1c9d1fad06e38c2c44b53644151487763483756355132..."
+```
+
 ## Visão Simples
 <h1 align="center">
   <img alt="LigaSimples" title="Liga Simples" src="./assets/images/screenshot-localhost_44368-2021.09.20-00_40_34.png" />
@@ -26,6 +31,9 @@ $ docker pull redis
 <h1 align="center">
   <img alt="DetalheTime" title="Detalhe Time" src="./assets/images/screenshot-localhost_44368-2021.09.20-00_45_15.png" />
 </h1>
+
+## Observações
+Esse projeto utiliza das apis do [Cartola FC](https://cartolafc.globo.com/) para funcionar, podendo parar de funcionar a qualquer momento.
 
 ## License
 This project is under the MIT license. See the [LICENSE](https://github.com/lukemorales/rocketshoes-react-native/blob/master/LICENSE) for more information.
