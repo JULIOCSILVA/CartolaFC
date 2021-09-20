@@ -22,7 +22,7 @@ namespace Cartola.Domain.Entidades
         public string rodada_id { get; set; }
         public string clube_id { get; set; }
         public string status_id { get; set; }
-        public string pontos_num { get; set; }
+        public decimal pontos_num { get; set; }
         public string preco_num { get; set; }
         public string variacao_num { get; set; }
         public string media_num { get; set; }

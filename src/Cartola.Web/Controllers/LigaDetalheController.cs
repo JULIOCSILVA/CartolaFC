@@ -39,7 +39,7 @@ namespace Cartola.Web.Controllers
                 if (!responseMercado.IsSuccessStatusCode)
                     throw new Exception("Erro ao buscar informação do mercado");
 
-                model.BlMercadoAberto = responseMercado.Content.status_mercado == 2;
+                model.BlMercadoAberto = responseMercado.Content.status_mercado == 1;
                 model.Rodada = responseMercado.Content.rodada_atual;
 
                 if (liga != null)
@@ -48,7 +48,7 @@ namespace Cartola.Web.Controllers
                     model.descricao = liga.descricao;
                     model.url_flamula_svg = liga.url_flamula_svg;
 
-                    if (model.BlMercadoAberto)
+                    if (!model.BlMercadoAberto)
                     {
                         var responseAtletaPontuado = await _clientApiCartola.RetornaAtletasPontuados();
                         if (!responseAtletaPontuado.IsSuccessStatusCode)
@@ -74,7 +74,7 @@ namespace Cartola.Web.Controllers
         [HttpPost]
         public PartialViewResult ClubeDetalhe([FromBody] ClubeViewModel clube)
         {
-            string nome = string.Empty;
+            var nome = string.Empty;
             var atualizacaoAtletas = new List<Atletas>();
             foreach (var atleta in clube.Atletas)
             {
@@ -89,6 +89,9 @@ namespace Cartola.Web.Controllers
                 }
                 else //Adiciona na lista caso o jogador não tenha entrado em campo
                 {
+                    if (clube.BlMercadoAberto)
+                        atleta.pontuacao = atleta.pontos_num;
+
                     atleta.Capitao = atleta.atleta_id == clube.capitao_id;
                     atleta.pontuacao *= clube.sem_capitao ? 1 : atleta.Capitao ? 2 : 1;
                     PreencheScouts(atleta);
@@ -104,7 +107,7 @@ namespace Cartola.Web.Controllers
 
         private static void PreencheScouts(Atletas atleta)
         {
-            Dictionary<string, string> scout = atleta.scout;
+            var scout = atleta.scout;
             string listScout = string.Empty;
             if (scout != null)
             {
@@ -165,17 +168,18 @@ namespace Cartola.Web.Controllers
 
         private async Task AdicionaClube(LigaDetalheViewModel model, Liga liga, Time time)
         {
-            Clube clube = new Clube
+            var clube = new Clube
             {
                 Slug = time.slug,
                 NomeTime = time.nome,
                 NomeCartoleiro = time.nome_cartola,
                 Url = time.url_escudo_png,
                 Pontos = time.pontos,
+                BlMercadoAberto = model.BlMercadoAberto,
+                AtletasPontuacao = model.AtletasPontuacao,
                 sem_capitao = liga.sem_capitao,
                 time_id = time.time_id,
-                capitao_id = time.capitao_id,
-                AtletasPontuacao = model.AtletasPontuacao
+                capitao_id = time.capitao_id
             };
 
             var responseAtletasClube = await _clientApiCartola.RetornaTimePorIdRodada(clube.time_id, 0);
@@ -184,18 +188,10 @@ namespace Cartola.Web.Controllers
 
             clube.Atletas = responseAtletasClube.Content.atletas;
             clube.capitao_id = responseAtletasClube.Content.capitao_id;
-
-            if (clube.AtletasPontuacao != null)
-                clube.Pontos.rodada = clube.AtletasPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => (x.atleta_id == clube.capitao_id ? x.pontuacao * 2 : x.pontuacao));
-
-            if (!clube.BlMercadoAberto)
-                clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato : clube.Pontos.rodada;
-            else
-                clube.Pontos.campeonato = clube.Pontos.campeonato.HasValue ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
-
+            clube.Pontos.rodada = clube.PontuacaoRodada;
+            clube.Pontos.campeonato = clube.PontuacaoTotal;
             clube.Patrimonio = Convert.ToDecimal(time.patrimonio);
-            clube.UltimaPontuacao = time.pontos.rodada.HasValue ? time.pontos.rodada.Value : 0;
-            clube.UltimaPontuacaoTotal = Convert.ToDecimal(clube.Pontos.campeonato) - clube.UltimaPontuacao;
+            clube.UltimaPontuacao = time.pontos.rodada ?? 0;
 
             model.Clubes.Add(clube);
         }

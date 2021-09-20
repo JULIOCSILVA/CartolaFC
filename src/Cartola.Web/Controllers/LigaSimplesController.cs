@@ -42,7 +42,7 @@ namespace Cartola.Web.Controllers
                 if (!responseMercado.IsSuccessStatusCode)
                     throw new Exception("Erro ao buscar informação do mercado");
 
-                model.BlMercadoAberto = responseMercado.Content.status_mercado == 2;
+                model.BlMercadoAberto = responseMercado.Content.status_mercado == 1;
                 model.Rodada = responseMercado.Content.rodada_atual;
 
                 if (liga != null)
@@ -57,7 +57,7 @@ namespace Cartola.Web.Controllers
                         if (!responseAtletaPontuado.IsSuccessStatusCode)
                             throw new Exception("Erro ao buscar informação de jogador pontuado");
 
-                        model.JogadorPontuacao = responseAtletaPontuado.Content;
+                        model.AtletasPontuacao = responseAtletaPontuado.Content;
                     }
                 }
 
@@ -87,6 +87,7 @@ namespace Cartola.Web.Controllers
                 if (!responseMercado.IsSuccessStatusCode)
                     throw new Exception("Erro ao buscar informação do mercado");
                 viewModel.CarregarRodadas(responseMercado.Content.rodada_atual);
+                viewModel.BlMercadoAberto = responseMercado.Content.status_mercado == 1;
 
                 var responseAtletaPontuado = await _clientApiCartola.RetornaAtletasPontuados();
                 if (!responseAtletaPontuado.IsSuccessStatusCode)
@@ -114,6 +115,9 @@ namespace Cartola.Web.Controllers
                     }
                     else //Adiciona na lista caso o jogador não tenha entrado em campo
                     {
+                        if (viewModel.BlMercadoAberto)
+                            atleta.pontuacao = atleta.pontos_num;
+
                         atleta.Capitao = atleta.atleta_id == clube.capitao_id;
                         atleta.pontuacao *= atleta.Capitao ? 2 : 1;
                         atleta.posicao = new Posicao { abreviacao = EnumExtensions.GetDescription((TipoPosicao)atleta.posicao_id) };
@@ -141,7 +145,7 @@ namespace Cartola.Web.Controllers
 
         private static void PreencheScouts(Atletas atleta)
         {
-            Dictionary<string, string> scout = atleta.scout;
+            var scout = atleta.scout;
             string listScout = string.Empty;
             if (scout != null)
             {
@@ -202,26 +206,25 @@ namespace Cartola.Web.Controllers
 
         private static void AdicionaClube(LigaSimplesViewModel model, Liga liga, Time time)
         {
-            Clube clube = new Clube
+            var clube = new Clube
             {
                 Slug = time.slug,
                 NomeTime = time.nome,
                 NomeCartoleiro = time.nome_cartola,
                 Url = time.url_escudo_png,
                 Pontos = time.pontos,
+                AtletasPontuacao = model.AtletasPontuacao,
                 sem_capitao = liga.sem_capitao,
                 time_id = time.time_id
             };
 
-            if (model.JogadorPontuacao != null)
-                clube.Pontos.rodada = model.JogadorPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => x.pontuacao);
+            clube.Pontos.rodada = clube.PontuacaoRodada;
 
             if (!clube.BlMercadoAberto)
                 clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
 
             clube.Patrimonio = Convert.ToDecimal(time.patrimonio);
-            clube.UltimaPontuacao = time.pontos.rodada.HasValue ? time.pontos.rodada.Value : 0;
-            clube.UltimaPontuacaoTotal = Convert.ToDecimal(clube.Pontos.campeonato) - clube.UltimaPontuacao;
+            clube.UltimaPontuacao = time.pontos.rodada ?? 0;
 
             model.Clubes.Add(clube);
         }

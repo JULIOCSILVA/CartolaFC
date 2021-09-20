@@ -24,7 +24,6 @@ namespace Cartola.Domain.Entidades
         public string Slug { get; set; }
         public string NomeCartoleiro { get; set; }
         public decimal UltimaPontuacao { get; set; }
-        public decimal UltimaPontuacaoTotal { get; set; }
 
         [RegularExpression(@"^\d+(\.\d{1,2})?$")]
         [Range(0, 9999999999999999.99)]
@@ -33,8 +32,12 @@ namespace Cartola.Domain.Entidades
         public string CorFrente { get; set; }
         public int PosicaoRodada { get; set; }
         public int PosicaoCampeonato { get; set; }
-
         public int PosicaoCampeonatoParcial { get; set; }
+        public int index { get; set; }
+        public bool BlMercadoAberto { get; set; }
+        public string JsonData { get; set; }
+        public List<Atletas> Atletas { get; set; }
+        public List<Atletas> AtletasPontuacao { get; set; }
 
         public int Diferenca
         {
@@ -43,10 +46,35 @@ namespace Cartola.Domain.Entidades
                 return PosicaoCampeonato - PosicaoCampeonatoParcial;
             }
         }
-        public int index { get; set; }
-        public bool BlMercadoAberto { get; set; }
-        public string JsonData { get; set; }
-        public List<Atletas> Atletas { get; set; }
-        public List<Atletas> AtletasPontuacao { get; set; }
+
+        public decimal? PontuacaoTotal
+        {
+            get
+            {
+                if (BlMercadoAberto)
+                    return Pontos.campeonato.HasValue ? Pontos.campeonato : Pontos.rodada;
+                else
+                    return Pontos.campeonato.HasValue ? Pontos.campeonato + Pontos.rodada : Pontos.rodada;
+            }
+        }
+
+        public decimal? PontuacaoRodada
+        {
+            get
+            {
+                if (AtletasPontuacao.Count > 0)
+                    return AtletasPontuacao.Where(x => Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => (x.atleta_id == capitao_id ? x.pontuacao * 2 : x.pontuacao));
+                else
+                    return Atletas.Sum(x => (x.atleta_id == capitao_id ? x.pontos_num * 2 : x.pontos_num)); ;
+            }
+        }
+
+        public decimal UltimaPontuacaoTotal
+        {
+            get
+            {
+                return Convert.ToDecimal(Pontos.campeonato) - UltimaPontuacao;
+            }
+        }
     }
 }
