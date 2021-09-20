@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cursos\\Cartola\\src\\Cartola.Data\\Cartola.Data.csproj": {}
+    "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Data\\Cartola.Data.csproj": {}
   },
   "projects": {
-    "D:\\Cursos\\Cartola\\src\\Cartola.Data\\Cartola.Data.csproj": {
+    "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Data\\Cartola.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cursos\\Cartola\\src\\Cartola.Data\\Cartola.Data.csproj",
+        "projectUniqueName": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Data\\Cartola.Data.csproj",
         "projectName": "Cartola.Data",
-        "projectPath": "D:\\Cursos\\Cartola\\src\\Cartola.Data\\Cartola.Data.csproj",
+        "projectPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Data\\Cartola.Data.csproj",
         "packagesPath": "C:\\Users\\jubel\\.nuget\\packages\\",
-        "outputPath": "D:\\Cursos\\Cartola\\src\\Cartola.Data\\obj\\",
+        "outputPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jubel\\AppData\\Roaming\\NuGet\\NuGet.Config",

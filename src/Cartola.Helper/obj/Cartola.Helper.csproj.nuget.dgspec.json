@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cursos\\Cartola\\src\\Cartola.Helper\\Cartola.Helper.csproj": {}
+    "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Helper\\Cartola.Helper.csproj": {}
   },
   "projects": {
-    "D:\\Cursos\\Cartola\\src\\Cartola.Helper\\Cartola.Helper.csproj": {
+    "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Helper\\Cartola.Helper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cursos\\Cartola\\src\\Cartola.Helper\\Cartola.Helper.csproj",
+        "projectUniqueName": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Helper\\Cartola.Helper.csproj",
         "projectName": "Cartola.Helper",
-        "projectPath": "D:\\Cursos\\Cartola\\src\\Cartola.Helper\\Cartola.Helper.csproj",
+        "projectPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Helper\\Cartola.Helper.csproj",
         "packagesPath": "C:\\Users\\jubel\\.nuget\\packages\\",
-        "outputPath": "D:\\Cursos\\Cartola\\src\\Cartola.Helper\\obj\\",
+        "outputPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Helper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jubel\\AppData\\Roaming\\NuGet\\NuGet.Config",

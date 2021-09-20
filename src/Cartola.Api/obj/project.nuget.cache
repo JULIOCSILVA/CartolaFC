@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kNK2htJpF9+9yZNffrvIvMkkQ343x5lWWsi/EZx5UlHOq3ccuPo0trOgzgd1QHdRJfK52huFm0xKsDTUzRiuhA==",
+  "dgSpecHash": "9r5SKz8loDnPA2x1KwLwO5p6sgMtwWk4nTHAHTqBZixlHsQFavywgNIuPDBicoZD4ul92dtE2O4ywha4v6RKzg==",
   "success": true,
-  "projectFilePath": "D:\\Cursos\\Cartola\\src\\Cartola.Api\\Cartola.Api.csproj",
+  "projectFilePath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Api\\Cartola.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\2.2.0\\microsoft.extensions.caching.abstractions.2.2.0.nupkg.sha512",

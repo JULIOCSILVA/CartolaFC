@@ -20,10 +20,11 @@ namespace Cartola.Web.Controllers
         {
             _clientApiCartola = clientApiCartola;
         }
+
         public async Task<IActionResult> Index(string slug)
         {
             slug = slug?.Replace(" ", "-").ToLower().Trim();
-            LigaSimplesViewModel model = new LigaSimplesViewModel();
+            var model = new LigaSimplesViewModel();
 
             try
             {
@@ -32,7 +33,6 @@ namespace Cartola.Web.Controllers
                     return StatusCode(500, response.Error.Content);
 
                 var ligaRetorno = response.Content;
-
                 var liga = ligaRetorno.liga;
                 var times = ligaRetorno.times;
 
@@ -48,6 +48,7 @@ namespace Cartola.Web.Controllers
                     model.nome = liga.nome;
                     model.descricao = liga.descricao;
                     model.url_flamula_svg = liga.url_flamula_svg;
+
                     if (model.BlMercadoAberto)
                     {
                         var responseAtletaPontuado = await _clientApiCartola.RetornaAtletasPontuados();
@@ -60,72 +61,10 @@ namespace Cartola.Web.Controllers
 
                 foreach (var time in times)
                 {
-                    Clube clube = new Clube
-                    {
-                        Slug = time.slug,
-                        NomeTime = time.nome,
-                        NomeCartoleiro = time.nome_cartola,
-                        Url = time.url_escudo_png,
-                        Pontos = time.pontos,
-                        sem_capitao = !liga.sem_capitao,
-                        time_id = time.time_id
-                    };
-
-                    if (model.JogadorPontuacao != null)
-                        clube.Pontos.rodada = model.JogadorPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => x.pontuacao);
-
-                    if (!clube.BlMercadoAberto)
-                        clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
-
-                    clube.Patrimonio = Convert.ToDecimal(time.patrimonio);
-                    clube.UltimaPontuacao = time.pontos.rodada.HasValue ? time.pontos.rodada.Value : 0;
-                    clube.UltimaPontuacaoTotal = Convert.ToDecimal(clube.Pontos.campeonato) - clube.UltimaPontuacao;
-
-                    model.Clubes.Add(clube);
+                    AdicionaClube(model, liga, time);
                 }
 
-                int posicao = 1;
-                foreach (var item in model.Clubes.OrderByDescending(i => i.UltimaPontuacaoTotal).ThenBy(i => i.NomeTime.Trim()))
-                {
-                    item.PosicaoCampeonato = posicao;
-                    posicao++;
-                }
-
-                posicao = 1;
-
-                foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.campeonato).ThenBy(i => i.NomeTime.Trim()))
-                {
-                    item.PosicaoCampeonatoParcial = posicao;
-                    posicao++;
-                }
-
-                posicao = 1;
-
-                if (!model.BlMercadoAberto)
-                {
-                    foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.rodada).ThenBy(i => i.NomeTime.Trim()))
-                    {
-                        item.PosicaoRodada = posicao;
-                        posicao++;
-                    }
-                }
-                else
-                {
-                    foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.campeonato).ThenBy(i => i.NomeTime.Trim()))
-                    {
-                        item.PosicaoRodada = posicao;
-                        posicao++;
-                    }
-                }
-
-
-                int index = 1;
-                foreach (var item in model.Clubes.OrderByDescending(a => model.BlMercadoAberto ? a.Pontos.campeonato : a.Pontos.rodada))
-                {
-                    item.index = index;
-                    item.JsonData = JsonConvert.SerializeObject(item);
-                    index++;
-                }
+                AjustaPosicaoTabela(model);
             }
             catch (Exception ex)
             {
@@ -135,59 +74,67 @@ namespace Cartola.Web.Controllers
             return View(model);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> ClubeDetalhe(int time_id, string rodada_id)
         {
-            var atualizacaoAtletas = new List<Atletas>();
             var viewModel = new ClubeViewModel();
-
-            var responseMercado = await _clientApiCartola.VerificarRodada();
-            if (!responseMercado.IsSuccessStatusCode)
-                throw new Exception("Erro ao buscar informação do mercado");
-            viewModel.CarregarRodadas(responseMercado.Content.rodada_atual);
-
-            var responseAtletaPontuado = await _clientApiCartola.RetornaAtletasPontuados();
-            if (!responseAtletaPontuado.IsSuccessStatusCode)
-                throw new Exception("Erro ao buscar informação de jogador pontuado");
-            var atletasPontuados = responseAtletaPontuado.Content;
-
-            var responseClube = await _clientApiCartola.RetornaTimePorIdRodada(time_id, Convert.ToInt32(rodada_id));
-            if (!responseClube.IsSuccessStatusCode)
-                throw new Exception("Erro ao buscar informações do clube");
-
-            var clube = responseClube.Content;
-            viewModel.Slug = clube.time.slug;
-            viewModel.NomeTime = clube.time.nome;
-            viewModel.NomeCartoleiro = clube.time.nome_cartola;
-            viewModel.Url = clube.time.url_escudo_png;
-            viewModel.Pontos = new Pontos() { rodada = Convert.ToDecimal(clube.pontos) };
-            viewModel.Patrimonio = Convert.ToDecimal(clube.patrimonio);
-
-            foreach (var atleta in clube.atletas)
+            try
             {
-                var atletaPontuado = atletasPontuados.FirstOrDefault(a => a.atleta_id == atleta.atleta_id);
-                //Adiciona na lista caso o Jogador já tenha entrado em campo
-                if (atletaPontuado != null)
-                {
-                    atletaPontuado.Capitao = atleta.atleta_id == clube.capitao_id;
-                    atletaPontuado.pontuacao *= atletaPontuado.Capitao ? 2 : 1;
-                    atletaPontuado.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atletaPontuado.posicao_id);
-                    PreencheScouts(atletaPontuado);
+                var atualizacaoAtletas = new List<Atletas>();
 
-                    atualizacaoAtletas.Add(atletaPontuado);
-                }
-                else //Adiciona na lista caso o jogador não tenha entrado em campo
+                var responseMercado = await _clientApiCartola.VerificarRodada();
+                if (!responseMercado.IsSuccessStatusCode)
+                    throw new Exception("Erro ao buscar informação do mercado");
+                viewModel.CarregarRodadas(responseMercado.Content.rodada_atual);
+
+                var responseAtletaPontuado = await _clientApiCartola.RetornaAtletasPontuados();
+                if (!responseAtletaPontuado.IsSuccessStatusCode)
+                    throw new Exception("Erro ao buscar informação de jogador pontuado");
+                var atletasPontuados = responseAtletaPontuado.Content;
+
+                var responseClube = await _clientApiCartola.RetornaTimePorIdRodada(time_id, Convert.ToInt32(rodada_id));
+                if (!responseClube.IsSuccessStatusCode)
+                    throw new Exception("Erro ao buscar informações do clube");
+
+                var clube = responseClube.Content;
+                viewModel.Slug = clube.time.slug;
+                viewModel.NomeTime = clube.time.nome;
+                viewModel.NomeCartoleiro = clube.time.nome_cartola;
+                viewModel.Url = clube.time.url_escudo_png;
+                viewModel.Pontos = new Pontos() { rodada = Convert.ToDecimal(clube.pontos) };
+                viewModel.Patrimonio = Convert.ToDecimal(clube.patrimonio);
+
+                foreach (var atleta in clube.atletas)
                 {
-                    atleta.Capitao = atleta.atleta_id == clube.capitao_id;
-                    atleta.pontuacao *= atleta.Capitao ? 2 : 1;
-                    atleta.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atleta.posicao_id);
-                    PreencheScouts(atleta);
-                    atualizacaoAtletas.Add(atleta);
+                    var atletaPontuado = atletasPontuados.FirstOrDefault(a => a.atleta_id == atleta.atleta_id);
+                    //Adiciona na lista caso o Jogador já tenha entrado em campo
+                    if (atletaPontuado != null)
+                    {
+                        atletaPontuado.Capitao = atleta.atleta_id == clube.capitao_id;
+                        atletaPontuado.pontuacao *= atletaPontuado.Capitao ? 2 : 1;
+                        atletaPontuado.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atletaPontuado.posicao_id);
+                        PreencheScouts(atletaPontuado);
+
+                        atualizacaoAtletas.Add(atletaPontuado);
+                    }
+                    else //Adiciona na lista caso o jogador não tenha entrado em campo
+                    {
+                        atleta.Capitao = atleta.atleta_id == clube.capitao_id;
+                        atleta.pontuacao *= atleta.Capitao ? 2 : 1;
+                        atleta.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atleta.posicao_id);
+                        PreencheScouts(atleta);
+                        atualizacaoAtletas.Add(atleta);
+                    }
                 }
+
+                viewModel.index = viewModel.index;
+                viewModel.Atletas = atualizacaoAtletas.OrderBy(q => q.posicao_id).ToList();
             }
-
-            viewModel.index = viewModel.index;
-            viewModel.Atletas = atualizacaoAtletas.OrderBy(q => q.posicao_id).ToList();
+            catch (Exception)
+            {
+                throw;
+            }            
 
             return View("ClubeDetalhe", viewModel);
         }
@@ -205,6 +152,78 @@ namespace Cartola.Web.Controllers
 
                 atleta.Scouts = listScout;
             }
+        }
+
+        private static void AjustaPosicaoTabela(LigaSimplesViewModel model)
+        {
+            int posicao = 1;
+            foreach (var item in model.Clubes.OrderByDescending(i => i.UltimaPontuacaoTotal).ThenBy(i => i.NomeTime.Trim()))
+            {
+                item.PosicaoCampeonato = posicao;
+                posicao++;
+            }
+
+            posicao = 1;
+
+            foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.campeonato).ThenBy(i => i.NomeTime.Trim()))
+            {
+                item.PosicaoCampeonatoParcial = posicao;
+                posicao++;
+            }
+
+            posicao = 1;
+
+            if (!model.BlMercadoAberto)
+            {
+                foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.rodada).ThenBy(i => i.NomeTime.Trim()))
+                {
+                    item.PosicaoRodada = posicao;
+                    posicao++;
+                }
+            }
+            else
+            {
+                foreach (var item in model.Clubes.OrderByDescending(i => i.Pontos.campeonato).ThenBy(i => i.NomeTime.Trim()))
+                {
+                    item.PosicaoRodada = posicao;
+                    posicao++;
+                }
+            }
+
+
+            int index = 1;
+            foreach (var item in model.Clubes.OrderByDescending(a => model.BlMercadoAberto ? a.Pontos.campeonato : a.Pontos.rodada))
+            {
+                item.index = index;
+                item.JsonData = JsonConvert.SerializeObject(item);
+                index++;
+            }
+        }
+
+        private static void AdicionaClube(LigaSimplesViewModel model, Liga liga, Time time)
+        {
+            Clube clube = new Clube
+            {
+                Slug = time.slug,
+                NomeTime = time.nome,
+                NomeCartoleiro = time.nome_cartola,
+                Url = time.url_escudo_png,
+                Pontos = time.pontos,
+                sem_capitao = !liga.sem_capitao,
+                time_id = time.time_id
+            };
+
+            if (model.JogadorPontuacao != null)
+                clube.Pontos.rodada = model.JogadorPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => x.pontuacao);
+
+            if (!clube.BlMercadoAberto)
+                clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
+
+            clube.Patrimonio = Convert.ToDecimal(time.patrimonio);
+            clube.UltimaPontuacao = time.pontos.rodada.HasValue ? time.pontos.rodada.Value : 0;
+            clube.UltimaPontuacaoTotal = Convert.ToDecimal(clube.Pontos.campeonato) - clube.UltimaPontuacao;
+
+            model.Clubes.Add(clube);
         }
     }
 }

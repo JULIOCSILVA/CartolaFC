@@ -1,0 +1,12 @@
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\bin\Debug\net5.0\Cartola.Domain.deps.json
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\bin\Debug\net5.0\Cartola.Domain.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\bin\Debug\net5.0\ref\Cartola.Domain.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\bin\Debug\net5.0\Cartola.Domain.pdb
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.csproj.AssemblyReference.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.AssemblyInfoInputs.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.AssemblyInfo.cs
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.csproj.CoreCompileInputs.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\ref\Cartola.Domain.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Domain\obj\Debug\net5.0\Cartola.Domain.pdb

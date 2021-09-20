@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VyP2YCN3emDV1DI3/mCIOFpACVkJ8P1CSOFl4BEMVoCjXGg3DsK4E/r5DK8qWhBnSpvUGgIHdTGgAnQdeJ0Y6Q==",
+  "dgSpecHash": "1NvJaftlGplZXMzLDrQKi0/SjClPuA+XlV2zW18Rv3r7usas7CCgi8GgS6DlLEK5xKDsvT7JqqpvYN8emuE0hw==",
   "success": true,
-  "projectFilePath": "D:\\Cursos\\Cartola\\src\\Cartola.Web\\Cartola.Web.csproj",
+  "projectFilePath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Web\\Cartola.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",

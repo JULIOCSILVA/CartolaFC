@@ -368,11 +368,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Cursos\\Cartola\\src\\Cartola.Infra\\Cartola.Infra.csproj",
+      "projectUniqueName": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Infra\\Cartola.Infra.csproj",
       "projectName": "Cartola.Infra",
-      "projectPath": "D:\\Cursos\\Cartola\\src\\Cartola.Infra\\Cartola.Infra.csproj",
+      "projectPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Infra\\Cartola.Infra.csproj",
       "packagesPath": "C:\\Users\\jubel\\.nuget\\packages\\",
-      "outputPath": "D:\\Cursos\\Cartola\\src\\Cartola.Infra\\obj\\",
+      "outputPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Infra\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jubel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -389,8 +389,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Cursos\\Cartola\\src\\Cartola.Domain\\Cartola.Domain.csproj": {
-              "projectPath": "D:\\Cursos\\Cartola\\src\\Cartola.Domain\\Cartola.Domain.csproj"
+            "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Domain\\Cartola.Domain.csproj": {
+              "projectPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Domain\\Cartola.Domain.csproj"
             }
           }
         }

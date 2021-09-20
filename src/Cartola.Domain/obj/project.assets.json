@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Cursos\\Cartola\\src\\Cartola.Domain\\Cartola.Domain.csproj",
+      "projectUniqueName": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Domain\\Cartola.Domain.csproj",
       "projectName": "Cartola.Domain",
-      "projectPath": "D:\\Cursos\\Cartola\\src\\Cartola.Domain\\Cartola.Domain.csproj",
+      "projectPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Domain\\Cartola.Domain.csproj",
       "packagesPath": "C:\\Users\\jubel\\.nuget\\packages\\",
-      "outputPath": "D:\\Cursos\\Cartola\\src\\Cartola.Domain\\obj\\",
+      "outputPath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jubel\\AppData\\Roaming\\NuGet\\NuGet.Config",
