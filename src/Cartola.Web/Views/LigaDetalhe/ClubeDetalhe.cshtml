@@ -1,0 +1,138 @@
+﻿@model ClubeViewModel
+
+@{
+    ViewData["Title"] = "Cartola";
+}
+
+<script>
+
+    $(function () {
+
+        // hide all the toggable rows on page load
+        $('.more').closest('tr').next().css('display', 'none');
+        $('.more').unbind().click(function () {
+            var elem = $(this).closest('tr').next();
+            elem.toggle();
+        });
+
+    });
+
+</script>
+
+<div class="time">
+    <div class="brasao">
+        <img src="@Model.Url" style="max-height: 64.05px;" />
+        <p>
+            @Html.Label("Time", Model.NomeTime)
+        </p>
+    </div>
+    <table>
+        <tr>
+            <td class="EsquerdaTexto">
+                <b>Cartoleiro: </b>
+            </td>
+            <td class="DireitaTexto">
+                @Html.Label("NomeCartoleiro", Model.NomeCartoleiro)
+            </td>
+        </tr>
+        <tr>
+            <td class="EsquerdaTexto">
+                <b>Parcial: </b>
+            </td>
+            <td class="DireitaTexto">
+                @Html.Label("txtPontos", Math.Round(Model.Pontos.rodada.Value, 2).ToString(), new { style = "color:" + (@Convert.ToDecimal(Model.Pontos.rodada) < 0 ? "#ffffff" : "#28cc00").ToString() })
+                @Html.Label("Label8", "(" + Model.PosicaoRodada.ToString() + "º)", new { style = "color:" + (Model.PosicaoRodada < 0 ? "#ffffff" : "#28cc00").ToString() })
+            </td>
+        </tr>
+        <tr>
+            <td class="EsquerdaTexto">
+                <b>Tot. Parcial: </b>
+            </td>
+            <td class="DireitaTexto">
+                @Html.Label("Label6", Math.Round(Model.Pontos.campeonato.HasValue ? Model.Pontos.campeonato.Value : 0, 2).ToString(), new { style = "color:" + ((Model.Pontos.campeonato.HasValue ? Model.Pontos.campeonato.Value : 0) < 0 ? "#ffffff" : "#28cc00").ToString() })
+                @Html.Label("Label6", "(" + Model.PosicaoCampeonatoParcial.ToString() + "º)", new { style = "color:" + (Model.Diferenca < 0 ? "#9e0000" : "#28cc00").ToString() })
+            </td>
+        </tr>
+        <tr>
+            <td class="EsquerdaTexto">
+                <b>Tot. Anterior: </b>
+            </td>
+            <td class="DireitaTexto">
+                @Html.Label("Label4", Math.Round(Model.UltimaPontuacaoTotal, 2).ToString(), new { style = "color:" + (Model.UltimaPontuacaoTotal < 0 ? "#ffffff" : "#28cc00").ToString() })
+                @Html.Label("Label7", "(" + Model.PosicaoCampeonato.ToString() + "º)", new { style = "color:" + (Model.UltimaPontuacao < 0 ? "#ffffff" : "#28cc00").ToString() })
+            </td>
+        </tr>
+        <tr>
+            <td class="EsquerdaTexto">
+                <b>Últ. Rodada: </b>
+            </td>
+            <td class="DireitaTexto">
+                @Html.Label("Label2", Math.Round(Model.UltimaPontuacao, 2).ToString(), new { style = "color:" + (Model.UltimaPontuacao < 0 ? "#ffffff" : "#28cc00").ToString() })
+            </td>
+        </tr>
+        <tr class="ultimaLinhaTabela">
+            <td class="EsquerdaTexto">
+                <b>Patrimônio: </b>
+            </td>
+            <td class="DireitaTexto">
+
+                @Html.Label("Label3", Math.Round(Model.Patrimonio, 2).ToString(), new { style = "color:" + (Model.Patrimonio < 0 ? "#ffffff" : "#28cc00").ToString() })
+
+            </td>
+        </tr>
+    </table>
+    <br />
+    <div>
+        <asp:ListView runat="server" ID="rptJogador">
+            @foreach (var jogador in Model.Atletas)
+            {
+                <ItemTemplate>
+                    <table class="jogadores">
+                        @if (jogador.Capitao)
+                        {
+                            <tr class="more capitao">
+                                <td style="width: 10%;">
+                                    <img src="@jogador.FotoReplace" />
+                                </td>
+                                <td style="width: 80%; text-align: left;">
+                                    @Html.Label("lblApelido", @jogador.apelido)
+                                </td>
+                                <td style="width: 10%; text-align: right;">
+                                    @Html.Label("Label1", @jogador.pontuacao.ToString(), new { style = "color:" + (@jogador.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="more">
+                                <td style="width: 10%;">
+                                    <img src="@jogador.FotoReplace" />
+                                </td>
+                                <td style="width: 80%; text-align: left;">
+                                    @Html.Label("lblApelido", @jogador.apelido)
+                                </td>
+                                <td style="width: 10%; text-align: right;">
+                                    @Html.Label("Label1", @jogador.pontuacao.ToString(), new { style = "color:" + (@jogador.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="3">
+                                <div id="divHidden">
+                                    <span id="Label12" style="white-space: pre-line">
+                                        @Html.Raw(Html.Encode(@jogador.Scouts).Replace("\n", "<br/>"))
+                                    </span>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            }
+        </asp:ListView>
+    </div>
+</div>
+@if (@Model.index % 3 == 0) 
+{
+    <hr />
+}

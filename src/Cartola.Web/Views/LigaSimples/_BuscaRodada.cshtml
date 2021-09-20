@@ -1,0 +1,9 @@
+﻿@model ClubeViewModel
+
+<form method="get" asp-controller="LigaSimples" asp-action="ClubeDetalhe">
+    <input type="hidden" asp-for="time_id"  />
+    <select style="background-color: #60ab85;" asp-for="rodada_id" asp-items="Model.Rodadas">
+        <option value="">Selecione a Rodada</option>
+    </select>
+    <input type="submit" value="Pesquisar" />
+</form>

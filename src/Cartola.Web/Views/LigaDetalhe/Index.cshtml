@@ -1,0 +1,93 @@
+﻿@model LigaDetalheViewModel
+
+@{
+    ViewData["Title"] = "Cartola";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0; margin: 0; height: 100%;">
+<head runat="server">
+    <title>#SemPolemicaFC</title>
+</head>
+<body>
+    <div class="conteudo">
+
+        <header>
+            <div>
+                <div class="Esquerda">
+
+                    @Html.Label("Label9", "Rodada:")
+                    @Html.Label("lblRodada", Model.Rodada.ToString())
+                    @Html.Label("Label10", "ª")
+                </div>
+                <div class="Direita DireitaTexto">
+                    <form method="get" asp-action="Index" asp-controller="LigaDetalhe">
+                        <input asp-for="slug" type="text" class="form-control input-md" />
+                        <button type="submit">Pesquisar Liga</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div style="width: 100%; text-align: center;">
+            <img src="@Model.url_flamula_svg" style="max-height: 64.05px;" />
+            <p>
+                @Html.Label("Time", Model.nome)
+            </p>
+            <p>
+                @Html.Label("Time", Model.descricao)
+            </p>
+        </div>
+
+        <div id="container">
+            <div id="id_10000"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+@foreach (var item in Model.Clubes.OrderByDescending(a => a.index))
+{
+    <script>
+        $(document).ready(function () {
+
+            var data = @Html.Raw(@item.JsonData);
+
+            $.ajax({
+                url: '/LigaDetalhe/ClubeDetalhe',
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "html",
+                async: false,
+                type: 'POST',
+                success: function (data) {
+                    var id = "id_" + @item.index;
+                    var div = $("<div></div>").attr({ id: id });
+                    div.html(data);
+
+                    var idBefore = "id_" + (@item.index - 1);
+                    var idAfter = "id_" + (@item.index + 1);
+
+                    if ($("#container #" + idBefore).length > 0) {
+                        $(div).insertAfter("#container #" + idBefore);
+                    }
+                    else if ($("#container #" + idAfter).length > 0)
+                    {
+                        $(div).insertBefore("#container #" + idAfter);
+                    }
+                    else {
+                        $(div).insertBefore("#container #id_10000");
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        });
+    </script>
+}
+
+
+<script>
+    function urlClubeDetalhe() {
+        return '@Url.Action("RetornaTimeCompletoAsync", "LigaDetalhe")'
+    }
+</script>

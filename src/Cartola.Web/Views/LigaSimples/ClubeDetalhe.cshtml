@@ -1,0 +1,80 @@
+﻿@model ClubeViewModel
+
+@{
+
+    ViewData["Title"] = "Cartola";
+}
+
+
+<body style="background-color: #60ab85;">
+    <div class="conteudo">
+        <div style="width: 100%; padding: 20px; display: flex;box-shadow: 5px 5px #00000040; margin-bottom: 10px; border-radius: 15px; background-color: #0a5b32;">
+            <div style="margin-left: 30px;float:left; width: 80%; ">
+                <div style="float:left;">
+                    <img src="@Model.Url" style="max-height: 80px; margin-right: 20px;" />
+                </div>
+                <div style="margin-top:10px;">
+                    <div style="font-weight: bold;font-size: 30px;">@Model.NomeTime</div>
+                    <div style="font-size: 15px;">
+                        @Model.NomeCartoleiro
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; margin-right: 30px; float: right;">
+                <div style="font-weight: bold;font-size: 30px;">@Math.Round(Model.Pontos.rodada.Value, 2) pts </div>
+                <div style="font-size: 15px;">
+                    ₵ @Model.Patrimonio
+                </div>
+            </div>
+
+        </div>
+        <div class="Direita DireitaTexto" style="width:100%">
+            <partial name="_BuscaRodada" model="@Model" />
+        </div>
+        <div style=" width: 100%; display: grid; grid-template-columns: 10% 80% 10%;box-shadow: 5px 5px #00000040; margin-bottom: 10px; border-radius: 15px; background-color: #0a5b32 !important;">
+            <div style=" padding: 20px 20px; background-color: #003500; background-clip: border-box; display: flex; align-items: center; margin-right: 15px; border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
+                <span>Posição</span>
+            </div>
+            <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                <div>Jogador</div>
+            </div>
+            <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                <div>Pontos</div>
+            </div>
+        </div>
+        @foreach (var item in Model.Atletas)
+        {
+            <div style=" width: 100%; display: grid; grid-template-columns: 10% 80% 10%;box-shadow: 5px 5px #00000040; margin-bottom: 10px; border-radius: 15px; background-color: #0a5b32;">
+                @if (item.Capitao)
+                {
+                    <div style=" padding: 20px 20px; background-color: #ff7400; background-clip: border-box; display: flex; align-items: center; margin-right: 15px; border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
+                        <span>@item.posicao.abreviacao.ToUpper()</span>
+                    </div>
+                }
+                else
+                {
+                    <div style=" padding: 20px 20px; background-color: #003500; background-clip: border-box; display: flex; align-items: center; margin-right: 15px; border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
+                        <span>@item.posicao.abreviacao.ToUpper()</span>
+                    </div>
+                }
+                <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                    <img src="@item.FotoReplace" style="max-height: 50px; margin-right: 20px;" />
+                    <div style="float:left;">
+                        <div style="font-weight: bold;">@item.apelido</div>
+                        <span style="font-size: 15px;">@item.Scouts</span>
+                    </div>
+                </div>
+                <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                    @if (@item.pontuacao >= 0)
+                    {
+                        <div>@item.pontuacao</div>
+                    }
+                    else
+                    {
+                        <div style="color: red;">@item.pontuacao</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</body>

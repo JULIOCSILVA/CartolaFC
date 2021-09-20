@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "VyP2YCN3emDV1DI3/mCIOFpACVkJ8P1CSOFl4BEMVoCjXGg3DsK4E/r5DK8qWhBnSpvUGgIHdTGgAnQdeJ0Y6Q==",
+  "success": true,
+  "projectFilePath": "D:\\Cursos\\Cartola\\src\\Cartola.Web\\Cartola.Web.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.http\\5.0.0\\microsoft.extensions.http.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\refit\\6.0.94\\refit.6.0.94.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\refit.httpclientfactory\\6.0.94\\refit.httpclientfactory.6.0.94.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\system.net.http.json\\5.0.0\\system.net.http.json.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
