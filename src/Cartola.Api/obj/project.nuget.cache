@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9r5SKz8loDnPA2x1KwLwO5p6sgMtwWk4nTHAHTqBZixlHsQFavywgNIuPDBicoZD4ul92dtE2O4ywha4v6RKzg==",
+  "dgSpecHash": "ugF4xdv0gUC8lQttgDSXcU5I5lE4cTMikqn0NsldYcjitq0FmbS7FVikKU+pvgMIwcWSs+glxjmK24DRY2gORw==",
   "success": true,
   "projectFilePath": "D:\\Cursos\\CartolaFC\\JULIOCSILVA\\CartolaFC\\src\\Cartola.Api\\Cartola.Api.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\jubel\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.11.1\\microsoft.visualstudio.azure.containers.tools.targets.1.11.1.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\jubel\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",

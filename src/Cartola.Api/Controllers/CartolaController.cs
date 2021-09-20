@@ -151,11 +151,6 @@ namespace Cartola.Api.Controllers
                 }
 
                 var clubeRetorno = JsonConvert.DeserializeObject<ClubeDetalhe>(responseText);
-                var responseGetPosicoes = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseText);
-                Dictionary<string, object> dicionarioPosicoes = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseGetPosicoes["posicoes"].ToString());
-                var posicoes = JsonConvert.SerializeObject(dicionarioPosicoes.Values);
-                clubeRetorno.PosicoesPC = JsonConvert.DeserializeObject<List<Posicao>>(posicoes);
-
                 valorJSON = JsonConvert.SerializeObject(clubeRetorno);
 
                 DistributedCacheEntryOptions opcoesCache = new DistributedCacheEntryOptions();

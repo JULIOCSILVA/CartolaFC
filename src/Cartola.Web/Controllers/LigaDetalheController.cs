@@ -110,7 +110,7 @@ namespace Cartola.Web.Controllers
             {
                 foreach (var itemScout in scout)
                 {
-                    listScout += itemScout.Key + ": " + TipoPontuacao.RetornaPontuacao(itemScout.Key, Convert.ToInt32(itemScout.Value)) + "\n";
+                    listScout += itemScout.Key + ": " + TipoPontuacao.RetornaPontuacao(itemScout.Key, Convert.ToInt32(itemScout.Value)).ToString("N2") + "\n";
                 }
 
                 atleta.Scouts = listScout;
@@ -172,7 +172,7 @@ namespace Cartola.Web.Controllers
                 NomeCartoleiro = time.nome_cartola,
                 Url = time.url_escudo_png,
                 Pontos = time.pontos,
-                sem_capitao = !liga.sem_capitao,
+                sem_capitao = liga.sem_capitao,
                 time_id = time.time_id,
                 capitao_id = time.capitao_id,
                 AtletasPontuacao = model.AtletasPontuacao
@@ -183,12 +183,15 @@ namespace Cartola.Web.Controllers
                 throw new Exception("Erro ao buscar informação do mercado");
 
             clube.Atletas = responseAtletasClube.Content.atletas;
+            clube.capitao_id = responseAtletasClube.Content.capitao_id;
 
             if (clube.AtletasPontuacao != null)
-                clube.Pontos.rodada = clube.AtletasPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => x.pontuacao);
+                clube.Pontos.rodada = clube.AtletasPontuacao.Where(x => clube.Atletas.Any(y => y.atleta_id == x.atleta_id)).Sum(x => (x.atleta_id == clube.capitao_id ? x.pontuacao * 2 : x.pontuacao));
 
             if (!clube.BlMercadoAberto)
-                clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
+                clube.Pontos.campeonato = clube.Pontos.campeonato != null ? clube.Pontos.campeonato : clube.Pontos.rodada;
+            else
+                clube.Pontos.campeonato = clube.Pontos.campeonato.HasValue ? clube.Pontos.campeonato + clube.Pontos.rodada : clube.Pontos.rodada;
 
             clube.Patrimonio = Convert.ToDecimal(time.patrimonio);
             clube.UltimaPontuacao = time.pontos.rodada.HasValue ? time.pontos.rodada.Value : 0;

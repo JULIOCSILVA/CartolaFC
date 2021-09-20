@@ -3,3 +3,10 @@
 ################################################################################
 
 /obj
+/bin/Debug
+/launchSettings.json
+/docker-compose.yml
+/docker-compose.override.yml
+/docker-compose.dcproj.user
+/docker-compose.dcproj
+/.dockerignore

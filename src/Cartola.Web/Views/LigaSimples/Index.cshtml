@@ -39,20 +39,20 @@
         {
             <a style="cursor: pointer; text-decoration: none; color: inherit;" asp-controller="LigaSimples" asp-action="ClubeDetalhe" asp-route-time_id="@item.time_id">
                 <div style=" width: 100%; display: grid; grid-template-columns: 10% 60% 30%;box-shadow: 5px 5px #00000040; margin-bottom: 10px; border-radius: 15px; background-color: #0a5b32;">
-                    <div style=" padding: 20px 20px; background-color: #003500; background-clip: border-box; display: flex; align-items: center; margin-right: 15px; border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
+                    <div style="padding: 20px 20px; background-color: #003500; background-clip: border-box; display: flex; align-items: center; margin-right: 15px; border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
                         <span>@item.index º</span>
                     </div>
-                    <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                    <div style="display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
                         <img src="@item.Url" style="max-height: 50px; margin-right: 20px;" />
                         <div style="float:left;">
                             <div style="font-weight: bold;">@item.NomeTime</div>
                             <span style="font-size: 15px;">@item.NomeCartoleiro</span>
                         </div>
                     </div>
-                    <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
+                    <div style="display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
                         <div>Campeonato: @item.Pontos.campeonato</div>
-                        <div>Rodada: @Math.Round(item.Pontos.rodada.Value, 2)</div>
-                        <div>Patrimonio: ₵@Math.Round(item.Patrimonio, 2)</div>
+                        <div>Rodada: @item.Pontos.rodada.Value</div>
+                        <div>Patrimonio: ₵ @item.Patrimonio </div>
                     </div>
                 </div>
             </a>

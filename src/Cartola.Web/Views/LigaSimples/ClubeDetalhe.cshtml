@@ -67,11 +67,11 @@
                 <div style=" display: flex; -webkit-box-align: center; align-items: center; max-width: 90%; margin: 0px;">
                     @if (@item.pontuacao >= 0)
                     {
-                        <div>@item.pontuacao</div>
+                        <div>@item.pontuacao.ToString("N2")</div>
                     }
                     else
                     {
-                        <div style="color: red;">@item.pontuacao</div>
+                        <div style="color: red;">@item.pontuacao.ToString("N2")</div>
                     }
                 </div>
             </div>

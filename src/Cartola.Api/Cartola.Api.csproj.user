@@ -3,6 +3,8 @@
   <PropertyGroup>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
-    <ShowAllFiles>false</ShowAllFiles>
+    <ShowAllFiles>true</ShowAllFiles>
+    <ActiveDebugProfile>Docker</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Api\Properties\PublishProfiles\registry.hub.docker.com_jsegatti.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -25,13 +25,17 @@ namespace Cartola.Web.Helper
                 case "I":
                     return "IMPEDIMENTO";
                 case "PI":
-                    return "PASSE IMCOMPLETO";
+                    return "PASSE INCOMPLETO";
+                case "PC":
+                    return "PASSE COMETIDO";
+                case "PS":
+                    return "PENALTI SOFRIDO";
                 case "SG":
                     return "JOGOS SEM SOFRER GOL";
                 case "DP":
                     return "DEFESA DE PÊNALTI";
-                case "DD":
-                    return "DEFESA DIFÍCIL";
+                case "DE":
+                    return "DEFESA";
                 case "DS":
                     return "DESARME";
                 case "GC":
@@ -49,64 +53,70 @@ namespace Cartola.Web.Helper
             }
         }
 
-        public static string RetornaPontuacao(string tipo, int quantidade)
+        public static double RetornaPontuacao(string tipo, int quantidade)
         {
-            string valor = string.Empty;
+            double valor = 0.00;
             switch (tipo)
             {
                 case "G":
-                    valor = Convert.ToString(quantidade * 8);
+                    valor = quantidade * 8.00;
                     break;
                 case "A":
-                    valor = Convert.ToString(quantidade * 5);
+                    valor = quantidade * 5.00;
                     break;
                 case "FT":
-                    valor = Convert.ToString(quantidade * 3.0);
+                    valor = quantidade * 3.00;
                     break;
                 case "FD":
-                    valor = Convert.ToString(quantidade * 1.2);
+                    valor = quantidade * 1.20;
                     break;
                 case "FF":
-                    valor = Convert.ToString(quantidade * 0.8);
+                    valor = quantidade * 0.80;
                     break;
                 case "FS":
-                    valor = Convert.ToString(quantidade * 0.5);
+                    valor = quantidade * 0.50;
+                    break;
+                case "PS":
+                    valor = quantidade * 1.00;
                     break;
                 case "PP":
-                    valor = Convert.ToString(quantidade * -4);
+                    valor = quantidade * -4.00;
+                    break;
+                case "PC":
+                    valor = quantidade * -1.00;
                     break;
                 case "I":
-                    valor = Convert.ToString(quantidade * -0.5);
+                    valor = quantidade * -0.50;
                     break;
                 case "PI":
-                    valor = Convert.ToString(Math.Round(quantidade * -0.1, 2, MidpointRounding.AwayFromZero));
+                    valor = quantidade * -0.10;
                     break;
                 case "SG":
-                    valor = Convert.ToString(quantidade * 5);
+                    valor = quantidade * 5.00;
                     break;
                 case "DP":
-                    valor = Convert.ToString(quantidade * 7);
+                    valor = quantidade * 7.00;
                     break;
-                case "DD":
-                    valor = Convert.ToString(quantidade * 4);
+                case "DE":
+                    valor = quantidade * 1.00;
                     break;
                 case "DS":
-                    valor = Convert.ToString(quantidade * 1);
+                    valor = quantidade * 1.00;
                     break;
                 case "GC":
-                    valor = Convert.ToString(quantidade * -5);
+                    valor = quantidade * -5.00;
                     break;
                 case "CV":
-                    valor = Convert.ToString(quantidade * -5);
+                    valor = quantidade * -5.00;
                     break;
                 case "CA":
-                    valor = Convert.ToString(quantidade * -2);
+                    valor = quantidade * -2.00;
                     break;
                 case "GS":
-                    valor = Convert.ToString(quantidade * -2);
+                    valor = quantidade * -1.00;
                     break;
                 case "FC":
-                    valor = Convert.ToString(quantidade * -0.5);
+                    valor = quantidade * -0.50;
                     break;
 
             }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cartola.Domain.Entidades
 {
@@ -26,6 +27,9 @@ namespace Cartola.Domain.Entidades
         public string variacao_num { get; set; }
         public string media_num { get; set; }
         public string jogos_num { get; set; }
+
+        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
+        [Range(0, 9999999999999999.99)]
         public decimal pontuacao { get; set; }
         public string Scouts { get; set; }
     }

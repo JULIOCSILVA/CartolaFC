@@ -1,0 +1,12 @@
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\bin\Debug\net5.0\Cartola.Helper.deps.json
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\bin\Debug\net5.0\Cartola.Helper.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\bin\Debug\net5.0\ref\Cartola.Helper.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\bin\Debug\net5.0\Cartola.Helper.pdb
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.csproj.AssemblyReference.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.AssemblyInfoInputs.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.AssemblyInfo.cs
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.csproj.CoreCompileInputs.cache
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\ref\Cartola.Helper.dll
+D:\Cursos\CartolaFC\JULIOCSILVA\CartolaFC\src\Cartola.Helper\obj\Debug\net5.0\Cartola.Helper.pdb

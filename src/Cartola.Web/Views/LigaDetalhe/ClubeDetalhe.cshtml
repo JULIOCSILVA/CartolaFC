@@ -23,16 +23,16 @@
     <div class="brasao">
         <img src="@Model.Url" style="max-height: 64.05px;" />
         <p>
-            @Html.Label("Time", Model.NomeTime)
+            <label>@Model.NomeTime</label>
         </p>
     </div>
     <table>
         <tr>
             <td class="EsquerdaTexto">
-                <b>Cartoleiro: </b>
+                <label><b>Cartoleiro: </b></label>
             </td>
             <td class="DireitaTexto">
-                @Html.Label("NomeCartoleiro", Model.NomeCartoleiro)
+                <label>@Model.NomeCartoleiro</label>
             </td>
         </tr>
         <tr>
@@ -40,8 +40,8 @@
                 <b>Parcial: </b>
             </td>
             <td class="DireitaTexto">
-                @Html.Label("txtPontos", Math.Round(Model.Pontos.rodada.Value, 2).ToString(), new { style = "color:" + (@Convert.ToDecimal(Model.Pontos.rodada) < 0 ? "#ffffff" : "#28cc00").ToString() })
-                @Html.Label("Label8", "(" + Model.PosicaoRodada.ToString() + "º)", new { style = "color:" + (Model.PosicaoRodada < 0 ? "#ffffff" : "#28cc00").ToString() })
+                <label style="color: @(Convert.ToDecimal(Model.Pontos.rodada) < 0 ? "#ffffff" : "#28cc00")">@Math.Round(Model.Pontos.rodada.Value, 2).ToString()</label>
+                <label style="color: @(Model.PosicaoRodada < 0 ? "#ffffff" : "#28cc00")">(@Model.PosicaoRodada.ToString() º)</label>
             </td>
         </tr>
         <tr>
@@ -67,7 +67,7 @@
                 <b>Últ. Rodada: </b>
             </td>
             <td class="DireitaTexto">
-                @Html.Label("Label2", Math.Round(Model.UltimaPontuacao, 2).ToString(), new { style = "color:" + (Model.UltimaPontuacao < 0 ? "#ffffff" : "#28cc00").ToString() })
+                @Html.Label("Label2", Model.UltimaPontuacao.ToString("N2"), new { style = "color:" + (Model.UltimaPontuacao < 0 ? "#ffffff" : "#28cc00").ToString() })
             </td>
         </tr>
         <tr class="ultimaLinhaTabela">
@@ -75,8 +75,7 @@
                 <b>Patrimônio: </b>
             </td>
             <td class="DireitaTexto">
-
-                @Html.Label("Label3", Math.Round(Model.Patrimonio, 2).ToString(), new { style = "color:" + (Model.Patrimonio < 0 ? "#ffffff" : "#28cc00").ToString() })
+                @Html.Label("Label3", Model.Patrimonio.ToString("N2"), new { style = "color:" + (Model.Patrimonio < 0 ? "#ffffff" : "#28cc00").ToString() })
 
             </td>
         </tr>
@@ -84,21 +83,21 @@
     <br />
     <div>
         <asp:ListView runat="server" ID="rptJogador">
-            @foreach (var jogador in Model.Atletas)
+            @foreach (var atleta in Model.Atletas)
             {
                 <ItemTemplate>
                     <table class="jogadores">
-                        @if (jogador.Capitao)
+                        @if (atleta.Capitao)
                         {
                             <tr class="more capitao">
                                 <td style="width: 10%;">
-                                    <img src="@jogador.FotoReplace" />
+                                    <img src="@atleta.FotoReplace" />
                                 </td>
                                 <td style="width: 80%; text-align: left;">
-                                    @Html.Label("lblApelido", @jogador.apelido)
+                                    @Html.Label("lblApelido", atleta.apelido)
                                 </td>
                                 <td style="width: 10%; text-align: right;">
-                                    @Html.Label("Label1", @jogador.pontuacao.ToString(), new { style = "color:" + (@jogador.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
+                                    @Html.Label("Label1", atleta.pontuacao.ToString("N2"), new { style = "color:" + (atleta.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
                                 </td>
                             </tr>
                         }
@@ -106,13 +105,13 @@
                         {
                             <tr class="more">
                                 <td style="width: 10%;">
-                                    <img src="@jogador.FotoReplace" />
+                                    <img src="@atleta.FotoReplace" />
                                 </td>
                                 <td style="width: 80%; text-align: left;">
-                                    @Html.Label("lblApelido", @jogador.apelido)
+                                    @Html.Label("lblApelido", atleta.apelido)
                                 </td>
                                 <td style="width: 10%; text-align: right;">
-                                    @Html.Label("Label1", @jogador.pontuacao.ToString(), new { style = "color:" + (@jogador.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
+                                    @Html.Label("Label1", atleta.pontuacao.ToString("N2"), new { style = "color:" + (atleta.pontuacao < 0 ? "#9e0000" : "#28cc00").ToString() })
                                 </td>
                             </tr>
                         }
@@ -120,7 +119,7 @@
                             <td colspan="3">
                                 <div id="divHidden">
                                     <span id="Label12" style="white-space: pre-line">
-                                        @Html.Raw(Html.Encode(@jogador.Scouts).Replace("\n", "<br/>"))
+                                        @Html.Raw(Html.Encode(atleta.Scouts).Replace("\n", "<br/>"))
                                     </span>
 
                                 </div>

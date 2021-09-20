@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,9 @@ namespace Cartola.Domain.Entidades
         public string NomeCartoleiro { get; set; }
         public decimal UltimaPontuacao { get; set; }
         public decimal UltimaPontuacaoTotal { get; set; }
+
+        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
+        [Range(0, 9999999999999999.99)]
         public decimal Patrimonio { get; set; }
         public string CorFundo { get; set; }
         public string CorFrente { get; set; }

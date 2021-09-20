@@ -5,9 +5,6 @@
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0; margin: 0; height: 100%;">
-<head runat="server">
-    <title>#SemPolemicaFC</title>
-</head>
 <body>
     <div class="conteudo">
 
@@ -30,13 +27,12 @@
         <div style="width: 100%; text-align: center;">
             <img src="@Model.url_flamula_svg" style="max-height: 64.05px;" />
             <p>
-                @Html.Label("Time", Model.nome)
+                <label asp-for="nome">@Model.nome</label>
             </p>
             <p>
-                @Html.Label("Time", Model.descricao)
+                <label asp-for="descricao">@Model.descricao</label>
             </p>
         </div>
-
         <div id="container">
             <div id="id_10000"></div>
         </div>
@@ -52,7 +48,7 @@
             var data = @Html.Raw(@item.JsonData);
 
             $.ajax({
-                url: '/LigaDetalhe/ClubeDetalhe',
+                url: urlClubeDetalhe(),
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 dataType: "html",
@@ -88,6 +84,6 @@
 
 <script>
     function urlClubeDetalhe() {
-        return '@Url.Action("RetornaTimeCompletoAsync", "LigaDetalhe")'
+        return '@Url.Action("ClubeDetalhe", "LigaDetalhe")';
     }
 </script>

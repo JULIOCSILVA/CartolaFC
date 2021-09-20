@@ -44,7 +44,6 @@ namespace Cartola.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();

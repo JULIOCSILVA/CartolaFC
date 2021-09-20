@@ -1,4 +1,5 @@
 using Cartola.Infra.Interface;
+using Cartola.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,8 +27,7 @@ namespace Cartola.Web
                    {
                        c.BaseAddress = new Uri(Configuration["UrlApiClient"]);
                    });
-
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +47,8 @@ namespace Cartola.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseGlobalizationConfig();
 
             app.UseEndpoints(endpoints =>
             {

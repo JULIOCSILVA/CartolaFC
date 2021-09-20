@@ -1,6 +1,7 @@
 ﻿using Cartola.Domain.Entidades;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cartola.Web.ViewModel.LigaDetalhe
 {
@@ -24,6 +25,9 @@ namespace Cartola.Web.ViewModel.LigaDetalhe
         public string NomeCartoleiro { get; set; }
         public decimal UltimaPontuacao { get; set; }
         public decimal UltimaPontuacaoTotal { get; set; }
+
+        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
+        [Range(0, 9999999999999999.99)]
         public decimal Patrimonio { get; set; }
         public string CorFundo { get; set; }
         public string CorFrente { get; set; }

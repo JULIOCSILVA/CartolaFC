@@ -1,4 +1,6 @@
 ﻿using Cartola.Domain.Entidades;
+using Cartola.Helper.Enumeradores;
+using Cartola.Helper.Extensions;
 using Cartola.Infra.Interface;
 using Cartola.Web.Helper;
 using Cartola.Web.ViewModel.LigaDetalhe;
@@ -60,9 +62,7 @@ namespace Cartola.Web.Controllers
                 }
 
                 foreach (var time in times)
-                {
                     AdicionaClube(model, liga, time);
-                }
 
                 AjustaPosicaoTabela(model);
             }
@@ -98,12 +98,6 @@ namespace Cartola.Web.Controllers
                     throw new Exception("Erro ao buscar informações do clube");
 
                 var clube = responseClube.Content;
-                viewModel.Slug = clube.time.slug;
-                viewModel.NomeTime = clube.time.nome;
-                viewModel.NomeCartoleiro = clube.time.nome_cartola;
-                viewModel.Url = clube.time.url_escudo_png;
-                viewModel.Pontos = new Pontos() { rodada = Convert.ToDecimal(clube.pontos) };
-                viewModel.Patrimonio = Convert.ToDecimal(clube.patrimonio);
 
                 foreach (var atleta in clube.atletas)
                 {
@@ -113,7 +107,7 @@ namespace Cartola.Web.Controllers
                     {
                         atletaPontuado.Capitao = atleta.atleta_id == clube.capitao_id;
                         atletaPontuado.pontuacao *= atletaPontuado.Capitao ? 2 : 1;
-                        atletaPontuado.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atletaPontuado.posicao_id);
+                        atletaPontuado.posicao = new Posicao { abreviacao = EnumExtensions.GetDescription((TipoPosicao)atletaPontuado.posicao_id) };
                         PreencheScouts(atletaPontuado);
 
                         atualizacaoAtletas.Add(atletaPontuado);
@@ -122,19 +116,25 @@ namespace Cartola.Web.Controllers
                     {
                         atleta.Capitao = atleta.atleta_id == clube.capitao_id;
                         atleta.pontuacao *= atleta.Capitao ? 2 : 1;
-                        atleta.posicao = clube.PosicoesPC.FirstOrDefault(p => p.id == atleta.posicao_id);
+                        atleta.posicao = new Posicao { abreviacao = EnumExtensions.GetDescription((TipoPosicao)atleta.posicao_id) };
                         PreencheScouts(atleta);
                         atualizacaoAtletas.Add(atleta);
                     }
                 }
 
+                viewModel.Slug = clube.time.slug;
+                viewModel.NomeTime = clube.time.nome;
+                viewModel.NomeCartoleiro = clube.time.nome_cartola;
+                viewModel.Url = clube.time.url_escudo_png;
+                viewModel.Pontos = new Pontos() { rodada = Convert.ToDecimal(atualizacaoAtletas.Sum(a => a.pontuacao)) };
+                viewModel.Patrimonio = Convert.ToDecimal(clube.patrimonio);
                 viewModel.index = viewModel.index;
                 viewModel.Atletas = atualizacaoAtletas.OrderBy(q => q.posicao_id).ToList();
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
 
             return View("ClubeDetalhe", viewModel);
         }
@@ -147,7 +147,7 @@ namespace Cartola.Web.Controllers
             {
                 foreach (var itemScout in scout)
                 {
-                    listScout += itemScout.Key + ": " + TipoPontuacao.RetornaPontuacao(itemScout.Key, Convert.ToInt32(itemScout.Value)) + "\n";
+                    listScout += itemScout.Key + ": " + TipoPontuacao.RetornaPontuacao(itemScout.Key, Convert.ToInt32(itemScout.Value)).ToString("N2") + "\n";
                 }
 
                 atleta.Scouts = listScout;
@@ -209,7 +209,7 @@ namespace Cartola.Web.Controllers
                 NomeCartoleiro = time.nome_cartola,
                 Url = time.url_escudo_png,
                 Pontos = time.pontos,
-                sem_capitao = !liga.sem_capitao,
+                sem_capitao = liga.sem_capitao,
                 time_id = time.time_id
             };
 
