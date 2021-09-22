@@ -1,6 +1,8 @@
 # Cartola FC - Pesquisa
 > Pesquisa de ligas do _Cartola FC_ e com fácil visualização das pontuações. Para quem quer iniciar um projeto sobre o _Cartola FC_ acredito ser um bom guia.
 
+> Status do Projeto: Em desenvolvimento :warning:
+
 ## Pré-requisitos
 
 Você vai precisar do [Docker](https://hub.docker.com) para rodar o Redis:
@@ -13,6 +15,16 @@ Não realizei nenhuma criação de login para pegar o token de acesso do _Cartol
 ```bash
 "GlbId": "12af9de170ba1c9d1fad06e38c2c44b53644151487763483756355132..."
 ```
+
+## 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+-   **ASP.NET Core 5.0**
+-   **Redis**
+-   **Bootstrap**
+-   **Refit**
+-   **Docker**
 
 ## Visão Simples
 <h1 align="center">
