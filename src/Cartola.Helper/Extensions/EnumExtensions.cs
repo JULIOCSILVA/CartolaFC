@@ -14,10 +14,11 @@ namespace Cartola.Helper.Extensions
         /// <returns></returns>
         public static string GetDescription(this Enum enumValue)
         {
-            return enumValue.GetType()
+            var member = enumValue.GetType()
                        .GetMember(enumValue.ToString())
-                       .First()
-                       .GetCustomAttribute<DescriptionAttribute>()?
+                       .FirstOrDefault();
+
+            return member?.GetCustomAttribute<DescriptionAttribute>()?
                        .Description ?? string.Empty;
         }
     }
